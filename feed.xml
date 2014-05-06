@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://charlesxieyupeng.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://charlesxieyupeng.github.io/" />
-<updated>2014-05-06T12:19:22-04:00</updated>
+<updated>2014-05-06T12:24:12-04:00</updated>
 <id>http://charlesxieyupeng.github.io/</id>
 <author>
   <name>Charlie Xie</name>
@@ -61,15 +61,41 @@
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;nav class=&quot;pagination&quot; role=&quot;navigation&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;#container {
+    float: left;
+    margin: 0 -240px 0 0;
+    width: 100%;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;nav class=&quot;pagination&quot; role=&quot;navigation&quot;&amp;gt;
     {% if page.previous %}
-        &lt;a href=&quot;{{ site.url }}{{ page.previous.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.previous.title }}&quot;&gt;Previous article&lt;/a&gt;
+        &amp;lt;a href=&quot;{{ site.url }}{{ page.previous.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.previous.title }}&quot;&amp;gt;Previous article&amp;lt;/a&amp;gt;
     {% endif %}
     {% if page.next %}
-        &lt;a href=&quot;{{ site.url }}{{ page.next.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.next.title }}&quot;&gt;Next article&lt;/a&gt;
+        &amp;lt;a href=&quot;{{ site.url }}{{ page.next.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.next.title }}&quot;&amp;gt;Next article&amp;lt;/a&amp;gt;
     {% endif %}
-&lt;/nav&gt;
-&lt;!-- /.pagination --&gt;
+&amp;lt;/nav&amp;gt;&amp;lt;!-- /.pagination --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-ruby&quot;&gt;module Jekyll
+  class TagIndex &amp;lt; Page
+    def initialize(site, base, dir, tag)
+      @site = site
+      @base = base
+      @dir = dir
+      @name = &#39;index.html&#39;
+      self.process(@name)
+      self.read_yaml(File.join(base, &#39;_layouts&#39;), &#39;tag_index.html&#39;)
+      self.data[&#39;tag&#39;] = tag
+      tag_title_prefix = site.config[&#39;tag_title_prefix&#39;] || &#39;Tagged: &#39;
+      tag_title_suffix = site.config[&#39;tag_title_suffix&#39;] || &#39;&amp;amp;#8211;&#39;
+      self.data[&#39;title&#39;] = &quot;#{tag_title_prefix}#{tag}&quot;
+      self.data[&#39;description&#39;] = &quot;An archive of posts tagged #{tag}.&quot;
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://charlesxieyupeng.github.io/articles/code-first-post/&quot;&gt;First Post&lt;/a&gt; was originally published by Charlie Xie at &lt;a href=&quot;http://charlesxieyupeng.github.io&quot;&gt;&lt;/a&gt; on May 06, 2014.&lt;/p&gt;</content>
 </entry>
